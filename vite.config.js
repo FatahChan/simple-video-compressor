@@ -4,6 +4,7 @@ import { defineConfig } from "vite";
 
 import { resolve } from "node:path";
 import { TanStackRouterVite } from "@tanstack/router-plugin/vite";
+import crossOriginIsolation from "vite-plugin-cross-origin-isolation";
 import { VitePWA } from "vite-plugin-pwa";
 
 // https://vitejs.dev/config/
@@ -12,6 +13,7 @@ export default defineConfig({
 		TanStackRouterVite({ autoCodeSplitting: true }),
 		viteReact(),
 		tailwindcss(),
+		crossOriginIsolation(),
 		VitePWA({ registerType: "autoUpdate", devOptions: { enabled: true } }),
 	],
 	test: {
@@ -25,11 +27,5 @@ export default defineConfig({
 	},
 	optimizeDeps: {
 		exclude: ["@ffmpeg/ffmpeg", "@ffmpeg/util"],
-	},
-	server: {
-		headers: {
-			"Cross-Origin-Embedder-Policy": "require-corp",
-			"Cross-Origin-Opener-Policy": "same-origin",
-		},
 	},
 });

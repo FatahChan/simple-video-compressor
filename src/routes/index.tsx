@@ -2,7 +2,6 @@ import { FFmpeg } from "@ffmpeg/ffmpeg";
 import { fetchFile, toBlobURL } from "@ffmpeg/util";
 import { createFileRoute } from "@tanstack/react-router";
 import { useRef, useState } from "react";
-
 export const Route = createFileRoute("/")({
 	component: App,
 });
@@ -46,11 +45,12 @@ function App() {
 				"https://raw.githubusercontent.com/ffmpegwasm/testdata/master/Big_Buck_Bunny_180_10s.webm",
 			),
 		);
+		console.log("Transcoding...");
 		await ffmpeg.exec(["-i", "input.webm", "output.mp4"]);
 		const data = await ffmpeg.readFile("output.mp4");
 		if (videoRef.current) {
 			videoRef.current.src = URL.createObjectURL(
-				new Blob([data.buffer], { type: "video/mp4" }),
+				new Blob([data], { type: "video/mp4" }),
 			);
 		}
 	};

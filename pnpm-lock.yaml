@@ -8,9 +8,6 @@ importers:
 
   .:
     dependencies:
-      '@ffmpeg/core-mt':
-        specifier: ^0.12.9
-        version: 0.12.9
       '@ffmpeg/ffmpeg':
         specifier: ^0.12.15
         version: 0.12.15
@@ -90,6 +87,9 @@ importers:
       vite:
         specifier: ^6.1.0
         version: 6.2.2(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.3)
+      vite-plugin-cross-origin-isolation:
+        specifier: ^0.1.6
+        version: 0.1.6
       vite-plugin-pwa:
         specifier: ^0.21.1
         version: 0.21.1(vite@6.2.2(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.3))(workbox-build@7.3.0(@types/babel__core@7.20.5))(workbox-window@7.3.0)
@@ -854,10 +854,6 @@ packages:
     engines: {node: '>=18'}
     cpu: [x64]
     os: [win32]
-
-  '@ffmpeg/core-mt@0.12.9':
-    resolution: {integrity: sha512-ANw1VxuJGcHVvO3hhc2Bm5qa+jCYdVe69lFhZijeoK2GBQVsQ36H3UUmTk+c5bY0XWeUEwW6EWdxf8fWmIL3wA==}
-    engines: {node: '>=16.x'}
 
   '@ffmpeg/ffmpeg@0.12.15':
     resolution: {integrity: sha512-1C8Obr4GsN3xw+/1Ww6PFM84wSQAGsdoTuTWPOj2OizsRDLT4CXTaVjPhkw6ARyDus1B9X/L2LiXHqYYsGnRFw==}
@@ -2536,6 +2532,9 @@ packages:
     engines: {node: ^18.0.0 || ^20.0.0 || >=22.0.0}
     hasBin: true
 
+  vite-plugin-cross-origin-isolation@0.1.6:
+    resolution: {integrity: sha512-OY0naW9nPUDrKTffYnY7FRYXOgZdHoNwMGpPxUmj/n32mGZi01fcq+J536jkmwGWX7DLT95XBQVHHbrAJzTvrw==}
+
   vite-plugin-pwa@0.21.1:
     resolution: {integrity: sha512-rkTbKFbd232WdiRJ9R3u+hZmf5SfQljX1b45NF6oLA6DSktEKpYllgTo1l2lkiZWMWV78pABJtFjNXfBef3/3Q==}
     engines: {node: '>=16.0.0'}
@@ -3556,8 +3555,6 @@ snapshots:
 
   '@esbuild/win32-x64@0.25.1':
     optional: true
-
-  '@ffmpeg/core-mt@0.12.9': {}
 
   '@ffmpeg/ffmpeg@0.12.15':
     dependencies:
@@ -5332,6 +5329,8 @@ snapshots:
       - terser
       - tsx
       - yaml
+
+  vite-plugin-cross-origin-isolation@0.1.6: {}
 
   vite-plugin-pwa@0.21.1(vite@6.2.2(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.3))(workbox-build@7.3.0(@types/babel__core@7.20.5))(workbox-window@7.3.0):
     dependencies:
