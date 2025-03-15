@@ -11,6 +11,7 @@ export default defineConfig({
 		TanStackRouterVite({ autoCodeSplitting: true }),
 		viteReact(),
 		tailwindcss(),
+		VitePWA({ registerType: "autoUpdate", devOptions: { enabled: true } }),
 	],
 	test: {
 		globals: true,
