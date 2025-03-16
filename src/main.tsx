@@ -6,8 +6,8 @@ import ReactDOM from "react-dom/client";
 import { routeTree } from "./routeTree.gen";
 
 import "./styles.css";
+import PWABadge from "./components/pwa-badge/pwa-badge.tsx";
 import reportWebVitals from "./reportWebVitals.ts";
-
 // Create a new router instance
 const router = createRouter({
 	routeTree,
@@ -32,6 +32,7 @@ if (rootElement && !rootElement.innerHTML) {
 	root.render(
 		<StrictMode>
 			<RouterProvider router={router} />
+			<PWABadge />
 		</StrictMode>,
 	);
 }

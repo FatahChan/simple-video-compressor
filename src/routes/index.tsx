@@ -1,5 +1,5 @@
 import { FFmpeg } from "@ffmpeg/ffmpeg";
-import { fetchFile, toBlobURL } from "@ffmpeg/util";
+import { fetchFile } from "@ffmpeg/util";
 import { createFileRoute } from "@tanstack/react-router";
 import { useRef, useState } from "react";
 export const Route = createFileRoute("/")({
@@ -13,44 +13,41 @@ function App() {
 	const messageRef = useRef<HTMLParagraphElement | null>(null);
 
 	const load = async () => {
-		const baseURL = "https://unpkg.com/@ffmpeg/core-mt@0.12.6/dist/esm";
 		const ffmpeg = ffmpegRef.current;
 		ffmpeg.on("log", ({ message }) => {
-			if (messageRef.current) {
-				messageRef.current.innerHTML = message;
-			}
-			console.log(message);
+			if (messageRef.current) messageRef.current.innerHTML = message;
 		});
 		// toBlobURL is used to bypass CORS issue, urls with the same
 		// domain can be used directly.
 		await ffmpeg.load({
-			coreURL: await toBlobURL(`${baseURL}/ffmpeg-core.js`, "text/javascript"),
-			wasmURL: await toBlobURL(
-				`${baseURL}/ffmpeg-core.wasm`,
-				"application/wasm",
-			),
-			workerURL: await toBlobURL(
-				`${baseURL}/ffmpeg-core.worker.js`,
-				"text/javascript",
-			),
+			coreURL: new URL("/scripts/ffmpeg-core.js", import.meta.url).href,
+			wasmURL: new URL("/scripts/ffmpeg-core.wasm", import.meta.url).href,
+			workerURL: new URL("/scripts/ffmpeg-core.worker.js", import.meta.url)
+				.href,
 		});
 		setLoaded(true);
 	};
 
 	const transcode = async () => {
+		const videoURL =
+			"https://raw.githubusercontent.com/ffmpegwasm/testdata/master/video-15s.avi";
 		const ffmpeg = ffmpegRef.current;
-		await ffmpeg.writeFile(
-			"input.webm",
-			await fetchFile(
-				"https://raw.githubusercontent.com/ffmpegwasm/testdata/master/Big_Buck_Bunny_180_10s.webm",
-			),
-		);
-		console.log("Transcoding...");
-		await ffmpeg.exec(["-i", "input.webm", "output.mp4"]);
-		const data = await ffmpeg.readFile("output.mp4");
+		await ffmpeg.writeFile("input.avi", await fetchFile(videoURL));
+		const numThreads = navigator.hardwareConcurrency
+			? Math.floor(navigator.hardwareConcurrency / 2)
+			: 1;
+		await ffmpeg.exec([
+			"-i",
+			"input.avi",
+			"-threads",
+			`${numThreads}`,
+			"output.mp4",
+		]);
+		console.log("Transcoding... done");
+		const fileData = await ffmpeg.readFile("output.mp4");
 		if (videoRef.current) {
 			videoRef.current.src = URL.createObjectURL(
-				new Blob([data], { type: "video/mp4" }),
+				new Blob([fileData], { type: "video/mp4" }),
 			);
 		}
 	};
