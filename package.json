@@ -39,6 +39,8 @@
     "@vite-pwa/assets-generator": "^0.2.6",
     "@vitejs/plugin-react": "^4.3.4",
     "jsdom": "^26.0.0",
+    "sharp": "0.32.6",
+    "sharp-ico": "0.1.5",
     "typescript": "^5.7.2",
     "vite": "^6.1.0",
     "vite-plugin-cross-origin-isolation": "^0.1.6",
@@ -46,9 +48,7 @@
     "vitest": "^3.0.5",
     "web-vitals": "^4.2.4",
     "workbox-core": "^7.3.0",
-    "workbox-window": "^7.3.0",
-        "sharp": "0.32.6",
-    "sharp-ico": "0.1.5"  
+    "workbox-window": "^7.3.0"
   },
   "resolutions": {
     "sharp": "0.32.6",
@@ -56,6 +56,8 @@
   },
   "pnpm": {
     "onlyBuiltDependencies": [
+      "@biomejs/biome",
+      "esbuild",
       "sharp"
     ]
   }
